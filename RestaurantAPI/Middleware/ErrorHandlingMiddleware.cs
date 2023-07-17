@@ -17,10 +17,6 @@ namespace RestaurantAPI.Middleware
             {
                 await next.Invoke(context);
             }
-            catch (TimeRequestException ex)
-            {
-
-            }
             catch (NotFoundException ex)
             {
                 context.Response.StatusCode = 404;
