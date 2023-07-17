@@ -1,4 +1,5 @@
 using RestaurantAPI.Entities;
+using RestaurantAPI.Services;
 using System.Reflection;
 
 namespace RestaurantAPI
@@ -15,6 +16,7 @@ namespace RestaurantAPI
             builder.Services.AddDbContext<RestaurantDbContext>();
             builder.Services.AddScoped<RestaurantSeeder>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddScoped<IRestaurantService, RestaurantService>();    
 
             var app = builder.Build();
             var scope = app.Services.CreateScope();
