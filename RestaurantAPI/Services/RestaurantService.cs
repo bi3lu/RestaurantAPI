@@ -8,6 +8,7 @@ namespace RestaurantAPI.Services
     public interface IRestaurantService
     {
         int Create(CreateRestaurantDto dto);
+        bool Delete(int id);
         IEnumerable<RestaurantDto> GetAll();
         RestaurantDto GetById(int id);
     }
@@ -61,6 +62,22 @@ namespace RestaurantAPI.Services
             _context.SaveChanges();
 
             return restaurant.Id;
+        }
+
+        public bool Delete(int id)
+        {
+            var restaurant = _context.Restaurants
+                .FirstOrDefault(r => r.Id == id);
+
+            if (restaurant == null)
+            {
+                return false;
+            }
+
+            _context.Restaurants.Remove(restaurant);
+            _context.SaveChanges();
+
+            return true;
         }
     }
 }
