@@ -1,3 +1,4 @@
+using NLog.Web;
 using RestaurantAPI.Entities;
 using RestaurantAPI.Services;
 using System.Reflection;
@@ -9,6 +10,10 @@ namespace RestaurantAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // NLog setup
+
+            builder.Host.UseNLog();
 
             // Add services to the container.
 
