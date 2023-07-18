@@ -80,8 +80,9 @@ namespace RestaurantAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Restaurant API");
             });
 
-            app.MapControllers();
+            app.UseAuthorization();
 
+            app.MapControllers();
             app.Run();
         }
     }
