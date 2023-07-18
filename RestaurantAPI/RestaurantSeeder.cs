@@ -10,6 +10,7 @@ namespace RestaurantAPI
         {
             _context = context;
         }
+
         public void Seed()
         {
             if (_context.Database.CanConnect())
