@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using RestaurantAPI.Entities;
@@ -26,6 +27,8 @@ namespace RestaurantAPI
             // Add services to the container.
             var authenticationSettings = new AuthenticationSettings();
             builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+
+            builder.Services.AddSingleton(authenticationSettings);
 
             builder.Services.AddAuthentication(option =>
             {
