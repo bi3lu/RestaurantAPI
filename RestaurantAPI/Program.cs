@@ -2,7 +2,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 using RestaurantAPI.Authorization;
@@ -53,10 +52,12 @@ namespace RestaurantAPI
             {
                 options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality", "Polish"));
                 options.AddPolicy("Atleast20", builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+                options.AddPolicy("CreatedAtleast2Restaurants", builder => builder.AddRequirements(new CreatedMultipleRestaurantRequirement(2)));
             });
 
             builder.Services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
             builder.Services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
+            builder.Services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantRequirementHandler>();
             builder.Services.AddControllers().AddFluentValidation();
             builder.Services.AddDbContext<RestaurantDbContext>();
             builder.Services.AddScoped<RestaurantSeeder>();
