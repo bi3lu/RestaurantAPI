@@ -84,6 +84,7 @@ namespace RestaurantAPI
             var seeder = scope.ServiceProvider.GetRequiredService<RestaurantSeeder>();
 
             // Configure the HTTP request pipeline.
+            app.UseResponseCaching();
             app.UseStaticFiles();
             app.UseCors("FrontEndClient");
 
