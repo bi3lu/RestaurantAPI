@@ -75,7 +75,8 @@ namespace RestaurantAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("FrontEndClient", builder => builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:8080"));
+                options.AddPolicy("FrontEndClient", policyBuilder => policyBuilder
+                .AllowAnyMethod().AllowAnyHeader().WithOrigins(builder.Configuration["AllowedOrigin"]));
             });
 
             var app = builder.Build();
@@ -83,6 +84,7 @@ namespace RestaurantAPI
             var seeder = scope.ServiceProvider.GetRequiredService<RestaurantSeeder>();
 
             // Configure the HTTP request pipeline.
+            app.UseStaticFiles();
             app.UseCors("FrontEndClient");
 
             seeder.Seed();
