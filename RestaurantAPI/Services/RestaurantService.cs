@@ -60,7 +60,7 @@ namespace RestaurantAPI.Services
                 .Include(r => r.Dishes)
                 .Where(r => query.SearchPhrase == null || (r.Name.ToLower().Contains(query.SearchPhrase) || r.Description.ToLower().Contains(query.SearchPhrase)));
 
-            if (string.IsNullOrEmpty(query.SortBy))
+            if (!string.IsNullOrEmpty(query.SortBy))
             {
                 var columnsSelector = new Dictionary<string, Expression<Func<Restaurant, object>>>
                 {
